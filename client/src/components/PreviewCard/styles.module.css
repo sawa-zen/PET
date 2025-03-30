@@ -1,0 +1,24 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding-right: 0;
+  background-color: #12171de2;
+  border-radius: 16px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #2FB1C9 #12171de2;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #2FB1C9;
+  padding: 16px 24px 0px 24px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+}

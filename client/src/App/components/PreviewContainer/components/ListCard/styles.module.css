@@ -1,0 +1,34 @@
+.itemCard {
+  padding: 16px;
+  max-height: 160px;
+  background-color: #20232C;
+  border: solid 2px #2d323d;
+  display: flex;
+  gap: 16px;
+  border-radius: 8px;
+}
+
+.thumbnailWrapper {
+  width: 160px;
+  height: 120px;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.itemContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.itemTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
