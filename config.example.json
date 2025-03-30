@@ -1,0 +1,12 @@
+{
+  "claudeApiKey": "your-api-key",
+  "mcpServers": {
+    "sample-mcp": {
+      "command": "npx",
+      "args": ["sample-mcp"],
+      "env": {
+        "API_KEY": "your-api-key"
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "pet",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@hono/node-server": "^1.14.0",
+    "@hono/node-ws": "^1.1.1",
+    "@modelcontextprotocol/sdk": "^1.8.0",
+    "eventemitter3": "^5.0.1",
+    "hono": "^4.7.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "tsx": "^4.7.1"
+  }
+}
