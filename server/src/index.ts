@@ -1,9 +1,8 @@
 import fs from 'fs'
-import { serve } from '@hono/node-server'
-import { Hono } from 'hono'
-import { createNodeWebSocket } from '@hono/node-ws'
+import express from 'express'
 import { AnthropicClient } from './AnthropicClient.js'
 import type { Config } from './types.js'
+import { Server } from 'socket.io'
 
 // 設定ファイルの読み込み
 const config: Config = JSON.parse(fs.readFileSync('./config.json', 'utf8'))
@@ -13,28 +12,31 @@ const anthropicClient = new AnthropicClient({ apiKey: config.claudeApiKey })
 anthropicClient.on('recive_assistant_message', ({ message }) => { console.log(`Claude: ${message}`) })
 await anthropicClient.setupTools(config.mcpServers || {})
 
-const app = new Hono()
-const { injectWebSocket, upgradeWebSocket } = createNodeWebSocket({ app })
+import { createServer } from 'node:http';
 
-app.get(
-  '/ws',
-  upgradeWebSocket((c) => {
-    return {
-      onMessage(event, ws) {
-        console.log(`Message from client: ${event.data}`)
-        ws.send('Hello from server!')
-      },
-      onClose: () => {
-        console.log('Connection closed')
-      },
-    }
-  })
-)
+const app = express();
+const server = createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+  },
+});
 
-const server = serve(app, (info) => {
-  console.log(`Server is running on http://localhost:${info.port}`)
-})
-injectWebSocket(server)
+app.get('/', (req, res) => {
+  res.send('<h1>Hello world</h1>');
+});
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+});
+
+server.listen(3000, () => {
+  console.log('server running at http://localhost:3000');
+});
 
 // 終了処理
 const cleanup = async () => {
