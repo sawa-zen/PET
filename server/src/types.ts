@@ -1,4 +1,4 @@
-import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio'
+import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
 
 export interface ChatMessage {
   role: 'user' | 'assistant'
@@ -19,3 +19,16 @@ export interface Config {
 }
 
 export type Transports = Record<string, StdioClientTransport>
+
+export interface ClientSendMessageEvent {
+  message: string
+}
+
+export interface ServerSendMessageEvent {
+  message: string
+}
+
+export interface SocketEvents {
+  c_send_message: (event: ClientSendMessageEvent) => void
+  s_send_message: (event: ServerSendMessageEvent) => void
+}
