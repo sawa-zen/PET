@@ -8,6 +8,7 @@ interface Props {
 
 export const useApp = ({ socket }: Props) => {
   const [messages, setMessages] = useState<ChatMessage[]>([])
+  const [thinking, setThinking] = useState(false)
 
   useEffect(() => {
     socket.on('connect', handleConnect)
@@ -23,6 +24,7 @@ export const useApp = ({ socket }: Props) => {
   const handleConnect = useCallback(() => { console.log('Connected to server') }, [])
 
   const handleServerSendMessage = useCallback((event: { message: string }) => {
+    setThinking(false)
     setMessages((prev) => [...prev, {
       role: 'assistant',
       content: event.message
@@ -31,6 +33,7 @@ export const useApp = ({ socket }: Props) => {
   const handleDisconnect = useCallback(() => { console.log('Disconnected from server') }, [])
 
   const handleClick = useCallback((text: string) => {
+    setThinking(true)
     setMessages((prev) => [...prev, {
       role: 'user',
       content: text
@@ -39,6 +42,7 @@ export const useApp = ({ socket }: Props) => {
   }, [])
 
   return {
+    thinking,
     messages,
     handleClick,
   }

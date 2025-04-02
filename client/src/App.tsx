@@ -7,7 +7,7 @@ import { AvatarPanel } from './components/AvatarPanel'
 const socket = io('http://localhost:3000')
 
 export const App = () => {
-  const { messages, handleClick } = useApp({ socket })
+  const { thinking, messages, handleClick } = useApp({ socket })
 
   return (
     <div id="root" className={styles.wrapper}>
@@ -15,6 +15,7 @@ export const App = () => {
         className={styles.avatarPanel}
       />
       <ChatPanel
+        thinking={thinking}
         messages={messages}
         onClickSubmit={handleClick}
       />

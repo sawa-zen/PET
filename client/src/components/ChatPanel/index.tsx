@@ -1,15 +1,23 @@
-import { FormEvent, useCallback, useRef } from "react"
+import { FormEvent, useCallback, useRef, useEffect } from "react"
 import { ChatMessage } from "../../types"
 import styles from "./styles.module.css"
 
 interface Props {
   className?: string
+  thinking?: boolean
   messages: ChatMessage[]
   onClickSubmit: (text: string) => void
 }
 
-export const ChatPanel = ({ className, messages, onClickSubmit }: Props) => {
+export const ChatPanel = ({ className, thinking, messages, onClickSubmit }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null)
+  const messagesRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (messagesRef.current) {
+      messagesRef.current.scrollTop = messagesRef.current.scrollHeight
+    }
+  }, [messages])
 
   const handleClickSubmit = useCallback((event: FormEvent) => {
     event.preventDefault()
@@ -20,7 +28,7 @@ export const ChatPanel = ({ className, messages, onClickSubmit }: Props) => {
 
   return (
     <div className={[className, styles.wrapper].join(" ")}>
-      <div className={styles.messages}>
+      <div ref={messagesRef} className={styles.messages}>
         {messages.map((message, index) => (
           <div
             key={index}
@@ -35,6 +43,12 @@ export const ChatPanel = ({ className, messages, onClickSubmit }: Props) => {
             <div>{message.content}</div>
           </div>
         ))}
+        {thinking && (
+          <div className={styles.message}>
+            <span className={styles.role}>PET</span>
+            <div>...</div>
+          </div>
+        )}
       </div>
       <form className={styles.formRow} onSubmit={handleClickSubmit}>
         <input
