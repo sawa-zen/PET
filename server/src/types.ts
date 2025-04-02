@@ -15,7 +15,8 @@ export type MCPServers = Record<string, MCPServer>
 
 export interface Config {
   claudeApiKey: string
-  mcpServers: MCPServers
+  systemPrompt?: string
+  mcpServers?: MCPServers
 }
 
 export type Transports = Record<string, StdioClientTransport>

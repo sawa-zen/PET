@@ -14,10 +14,13 @@ const io = new Server<SocketEvents>(server, {
 
 // anthoropic client の起動
 const config: Config = JSON.parse(fs.readFileSync('./config.json', 'utf8'))
-const anthropicClient = new AnthropicClient({ apiKey: config.claudeApiKey })
+const anthropicClient = new AnthropicClient({
+  apiKey: config.claudeApiKey,
+  systemPrompt: config.systemPrompt,
+})
 anthropicClient.on('recive_assistant_message', ({ message }) => {
   console.log(`Claude: ${message}`)
-  io.emit('s_send_message', { message })
+  io.emit('s_send_message', { message: message.trim() })
 })
 await anthropicClient.setupTools(config.mcpServers || {})
 
@@ -26,11 +29,15 @@ await anthropicClient.setupTools(config.mcpServers || {})
 io.on('connection', (socket) => {
   console.log('a user connected')
   socket.on('c_send_message', ({ message }) => {
+    if (message === '') return
     console.log(`message: ${message}`);
     anthropicClient.pushMessages({ role: 'user', content: message });
     anthropicClient.sendMessages();
   });
-  socket.on('disconnect', () => { console.log('user disconnected') });
+  socket.on('disconnect', () => {
+    console.log('user disconnected')
+    anthropicClient.resetMessages()
+  });
 });
 
 

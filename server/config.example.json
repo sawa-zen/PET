@@ -1,5 +1,6 @@
 {
   "claudeApiKey": "your-api-key",
+  "systemPrompt": "You are a helpful assistant.",
   "mcpServers": {
     "sample-mcp": {
       "command": "npx",

@@ -7,7 +7,7 @@ import { convertMCPToolToAnthropicTool } from './utils.js'
 
 interface Props {
   apiKey: string
-  mcpServers?: MCPServers
+  systemPrompt?: string
 }
 
 interface EventTypes {
@@ -22,10 +22,12 @@ export class AnthropicClient extends EventEmitter<EventTypes> {
   private _mcpClient: MCPClient
   private _messages: ChatMessage[] = []
   private _model: string = 'claude-3-5-haiku-latest'
+  private _systemPropmt?: string
   private _maxTokens: number = 1000
 
-  constructor({ apiKey }: Props) {
+  constructor({ apiKey, systemPrompt }: Props) {
     super()
+    this._systemPropmt = systemPrompt
     this._anthropic = new Anthropic({ apiKey })
     this._mcpClient = new MCPClient()
   }
@@ -50,6 +52,7 @@ export class AnthropicClient extends EventEmitter<EventTypes> {
       max_tokens: this._maxTokens,
       messages: this._messages,
       tools: this._mcpClient.tools.map(convertMCPToolToAnthropicTool),
+      system: this._systemPropmt,
     })
 
     const contents = response.content || []
@@ -64,6 +67,13 @@ export class AnthropicClient extends EventEmitter<EventTypes> {
     if (response.stop_reason === 'end_turn') {
       this.emit('end_turn')
     }
+  }
+
+  /**
+   * 会話履歴をリセットする
+   */
+  resetMessages = () => {
+    this._messages = []
   }
 
   /**
