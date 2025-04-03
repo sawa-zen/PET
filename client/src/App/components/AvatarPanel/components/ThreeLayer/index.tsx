@@ -2,7 +2,7 @@ import { useFrame, useThree } from "@react-three/fiber"
 import { useEffect, useRef, useState } from "react"
 import { GLTF, GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { VRMLoaderPlugin } from '@pixiv/three-vrm';
-import { OrbitControls, Stats } from '@react-three/drei'
+import { Stats } from '@react-three/drei'
 
 import type { Mesh } from "three"
 
