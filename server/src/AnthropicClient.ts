@@ -92,7 +92,7 @@ export class AnthropicClient extends EventEmitter<EventTypes> {
     // ツールの使用を宣言
     const message = `ツールを使用します: ${content.name}\n入力: ${JSON.stringify(content.input)}`
     this._messages.push({ role: 'assistant', content: message })
-    this.emit('recive_assistant_message', { message })
+    // this.emit('recive_assistant_message', { message })
 
     // ツールを実行
     const response = await this._mcpClient.useTool(content.name, content.input as Record<string, unknown> || {})

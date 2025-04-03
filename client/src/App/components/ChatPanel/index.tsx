@@ -1,5 +1,5 @@
 import { FormEvent, useCallback, useRef, useEffect } from "react"
-import { ChatMessage } from "../../types"
+import { ChatMessage } from "../../../types"
 import styles from "./styles.module.css"
 
 interface Props {
