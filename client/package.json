@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@pixiv/three-vrm": "^3.3.6",
-    "@react-three/drei": "^10.0.4",
+    "@react-three/drei": "^10.0.5",
     "@react-three/fiber": "^9.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
