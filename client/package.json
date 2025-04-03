@@ -10,8 +10,12 @@
   },
   "dependencies": {
     "@pixiv/three-vrm": "^3.3.6",
+    "@pixiv/three-vrm-animation": "^3.3.6",
+    "@pixiv/three-vrm-materials-mtoon": "^3.3.6",
+    "@pixiv/types-vrmc-materials-mtoon-1.0": "^3.3.6",
     "@react-three/drei": "^10.0.5",
     "@react-three/fiber": "^9.1.0",
+    "@tweenjs/tween.js": "^25.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "socket.io-client": "^4.8.1",
