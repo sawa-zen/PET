@@ -15,13 +15,8 @@ export const useApp = ({ socket }: Props) => {
   const playVoice = useCallback(async (text: string) => {
     try {
       const query = await voiceboxClient.current.audioQuery(text)
-      const audioBuffer = await voiceboxClient.current.synthesis(query)
-      const context = new AudioContext()
-      const source = context.createBufferSource()
-      const decodedAudio = await context.decodeAudioData(audioBuffer)
-      source.buffer = decodedAudio
-      source.connect(context.destination)
-      source.start()
+      const audioSource = await voiceboxClient.current.synthesis(query)
+      audioSource.start()
     } catch (error) {
       console.error('音声再生エラー:', error)
     }

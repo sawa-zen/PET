@@ -36,6 +36,17 @@ export class VoiceboxClient {
       throw new Error(`Error: ${res.statusText}`)
     }
 
-    return res.arrayBuffer()
+    const arrayBuffer = await res.arrayBuffer()
+    const audioSource = await this._convertToAudioSource(arrayBuffer)
+    return audioSource
+  }
+
+  private _convertToAudioSource = async (audioBuffer: ArrayBuffer) => {
+    const context = new AudioContext()
+    const source = context.createBufferSource()
+    const decodedAudio = await context.decodeAudioData(audioBuffer)
+    source.buffer = decodedAudio
+    source.connect(context.destination)
+    return source
   }
 }
