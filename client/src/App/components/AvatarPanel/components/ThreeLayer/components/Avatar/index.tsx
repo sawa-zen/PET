@@ -1,7 +1,7 @@
 import { VRM, VRMLoaderPlugin, VRMUtils } from "@pixiv/three-vrm"
 import { createVRMAnimationClip, VRMAnimation, VRMAnimationLoaderPlugin, VRMLookAtQuaternionProxy } from "@pixiv/three-vrm-animation"
 import { useFrame } from "@react-three/fiber"
-import { use, useEffect, useState } from "react"
+import { useState } from "react"
 import { AnimationMixer } from "three"
 import { GLTFLoader } from "three/examples/jsm/Addons.js"
 import { useBlink } from "./hooks/useBlink"
