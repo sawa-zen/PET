@@ -16,6 +16,7 @@ export type MCPServers = Record<string, MCPServer>
 export interface Config {
   claudeApiKey: string
   systemPrompt?: string
+  voiceboxEndpoint?: string
   mcpServers?: MCPServers
 }
 

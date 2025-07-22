@@ -1,6 +1,7 @@
 {
   "claudeApiKey": "your-api-key",
   "systemPrompt": "You are a helpful assistant.",
+  "voiceboxEndpoint": "http://127.0.0.1:50021",
   "mcpServers": {
     "sample-mcp": {
       "command": "npx",

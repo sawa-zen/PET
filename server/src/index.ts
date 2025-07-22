@@ -19,6 +19,7 @@ const config: Config = JSON.parse(fs.readFileSync('./config.json', 'utf8'))
 const anthropicClient = new AnthropicClient({
   apiKey: config.claudeApiKey,
   systemPrompt: config.systemPrompt,
+  voiceboxEndpoint: config.voiceboxEndpoint,
 })
 await anthropicClient.setupTools(config.mcpServers || {})
 anthropicClient.on('recive_assistant_message', async ({ message, audioArrayBuffer }) => {

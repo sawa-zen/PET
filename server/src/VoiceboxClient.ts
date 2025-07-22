@@ -1,8 +1,10 @@
 export class VoiceboxClient {
   private _speaker: number = 1 // ずんだもん
-  private _endpoint: string = `http://127.0.0.1:50021`
+  private _endpoint: string
 
-  constructor () {}
+  constructor (voiceboxEndpoint?: string) {
+    this._endpoint = voiceboxEndpoint || 'http://127.0.0.1:50021'
+  }
 
   audioQuery = async (text: string) =>{
     const queryParams = `?text=${encodeURIComponent(text)}&speaker=${this._speaker}`

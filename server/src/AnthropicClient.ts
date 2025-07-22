@@ -10,12 +10,13 @@ import { VoiceboxClient } from './VoiceboxClient.js'
 interface Props {
   apiKey: string
   systemPrompt?: string
+  voiceboxEndpoint?: string
 }
 
 export class AnthropicClient extends EventEmitter<AnthropicClientEventTypes> {
   private _anthropic: Anthropic
   private _mcpClient: MCPClient = new MCPClient()
-  private _voiceboxClient: VoiceboxClient = new VoiceboxClient()
+  private _voiceboxClient: VoiceboxClient
   private _messageParams: MessageParam[] = []
   private _model: Model = 'claude-3-5-sonnet-latest'
   private _systemPropmt?: string
@@ -23,10 +24,11 @@ export class AnthropicClient extends EventEmitter<AnthropicClientEventTypes> {
   private _timeout: number = 1000 * 60 * 3 // 3分
   private _lastMessageTime: number | null = null
 
-  constructor({ apiKey, systemPrompt }: Props) {
+  constructor({ apiKey, systemPrompt, voiceboxEndpoint }: Props) {
     super()
     this._systemPropmt = systemPrompt
     this._anthropic = new Anthropic({ apiKey })
+    this._voiceboxClient = new VoiceboxClient(voiceboxEndpoint)
   }
 
   setupTools = async (mcpServers: MCPServers) => {
